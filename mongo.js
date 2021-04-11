@@ -12,7 +12,7 @@ module.exports = {
 		afkschema.findOne({ id: id }, async (err, data) => {
 			if(err) throw err;
 			if(!data) {
-				const NewData = afkschema({
+				const NewData = new afkschema({
 					id: id,
 					points: 1,
 				});
