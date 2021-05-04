@@ -17,9 +17,10 @@ module.exports = {
 	 *
 	 * @param {string} code The code you get from Discord.
 	 * @param {string} req The request data you get from Express.
+	 * @param {string} res The response data you get from Express.
 	 * @returns {object} The information of the user.
 	 */
-	async registerUser(code, req) {
+	async registerUser(code, req, res) {
 		const params = new URLSearchParams();
 		params.append('client_id', client_id);
 		params.append('client_secret', client_secret);
@@ -51,6 +52,7 @@ module.exports = {
 						console.log('Session saved.');
 					}
 				});
+				res.redirect(`${process.env.baseUrl}/`);
 				return { 'id': req.session.uid, 'name': req.session.name, 'dash': req.session.dash, 'avatar': req.session.avatar };
 			});
 		}).catch(err => console.log(err));

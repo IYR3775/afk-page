@@ -40,12 +40,12 @@ app.get('/arc-sw.js', function(req, res) {
 app.get('/login/confirm', async function(req, res) {
 	const code = req.query.code;
 	if (code) {
-		const userInfo = await login.registerUser(code, req);
+		await login.registerUser(code, req, res);
 	}
-	res.send(`${req.session.uid}</br>\n\
-	${req.session.name}</br>\n\
-	${req.session.dash}</br>\n\
-	${req.session.avatar}</br>`);
+	else if (!code) {
+		res.status(401);
+		res.send('gtfo out of here boi');
+	}
 });
 
 app.get('/login', function(req, res) {
@@ -53,10 +53,13 @@ app.get('/login', function(req, res) {
 });
 
 app.get('/', function(req, res) {
+	if (!req.session.uid) return res.redirect(discord_login_url);
 	res.render('index');
 });
 
 app.get('/gibcoins', async function(req, res) {
+	if(!req.session.uid) return res.redirect(discord_login_url);
+	res.status(200);
 	const points = await mongo.addPoints(req.session.uid);
 	console.log(points);
 	res.send(points.toString());
