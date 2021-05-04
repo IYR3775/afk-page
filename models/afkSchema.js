@@ -5,4 +5,4 @@ const Schema = new mongoose.Schema({
 	points: Number,
 });
 
-module.exports = mongoose.model('APIkeySchema', Schema);
+module.exports = mongoose.model('Afk', Schema);
