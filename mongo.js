@@ -20,9 +20,9 @@ module.exports = {
 		const pointsdata = await afkschema.findOne({ id: id }).cache(120);
 		let points;
 		if (pointsdata) {
-			pointsdata.points + 1;
+			pointsdata.points += 1;
 			pointsdata.save();
-			points = pointsdata.points + 1;
+			points = pointsdata.points;
 		}
 		if (!pointsdata) {
 			const NewData = new afkschema({
