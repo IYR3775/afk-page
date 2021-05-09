@@ -62,8 +62,8 @@ app.get('/gibcoins', async function(req, res) {
 	res.status(200);
 	const points = await mongo.addPoints(req.session.uid);
 	console.log(points);
-	res.send(points.toString());
+	res.send(points);
 });
 
-app.listen(3000);
-console.log('Server is now ready on port: 3000');
+app.listen(process.env.port);
+console.log(`Server is now ready on port: ${process.env.baseUrl}`);
